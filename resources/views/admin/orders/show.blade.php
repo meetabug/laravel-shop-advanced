@@ -49,6 +49,9 @@
             <!-- 订单发货开始 -->
             <!-- 如果订单未发货，展示发货表单 -->
             @if($order->ship_status === \App\Models\Order::SHIP_STATUS_PENDING)
+            @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS &&
+          ($order->type !== \App\Models\Order::TYPE_CROWDFUNDING || 
+            $order->items[0]->product->crowdfunding->status === \App\Models\CrowdfundingProduct::STATUS_SUCCESS))
                 <!-- 加上这个判断条件 -->
                 @if($order->refund_status !== \App\Models\Order::REFUND_STATUS_SUCCESS)
                 <tr>
@@ -80,6 +83,7 @@
                 </tr>
                 <!-- 在 上一个 if 的 else 前放上 endif -->
                 @endif
+            @endif
             @else
                 <!-- 否则展示物流公司和物流单号 -->
                 <tr>
