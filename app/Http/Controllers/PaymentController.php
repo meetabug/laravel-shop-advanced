@@ -28,7 +28,7 @@ class PaymentController extends Controller
         ]);
     }
 
-    public function alipayReturn()
+    public function alipayReturn(Request $request)
     {
         try {
             app('alipay')->verify();
