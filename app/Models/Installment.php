@@ -16,7 +16,7 @@ class Installment extends Model
         self::STATUS_FINISHED => '已完成',
     ];
 
-    protected $fillalbe = ['no', 'total_amount', 'count', 'fee_rate', 'fine_rate', 'status'];
+    protected $fillable = ['no', 'total_amount', 'count', 'fee_rate', 'fine_rate', 'status'];
 
     protected static function boot()
     {
@@ -24,7 +24,7 @@ class Installment extends Model
         // 监听模型创建事件，在写入数据库之前触发
         static::creating(function ($model) {
             // 如果模型的 no 字段为空
-            if($model->no) {
+            if(!$model->no) {
                 $model->no = static::findAvailableNo();
                 // 如果生成失败，则终止创建订单
                 if (!$model->no) {
