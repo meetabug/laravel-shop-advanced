@@ -63,6 +63,6 @@ class CalculateInstallmentFine extends Command
                         'fine' => $fine,
                     ]);
                 }
-            })
+            });
     }
 }
