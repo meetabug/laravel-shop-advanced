@@ -13,6 +13,7 @@ use App\Exceptions\InvalidRequestException;
 use App\Jobs\CloseOrder;
 use App\Jobs\RefundInstallmentOrder;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Redis;
 
 class OrderService
 {
@@ -220,6 +221,8 @@ class OrderService
             $item->product()->associate($sku->product_id);
             $item->productSku()->associate($sku);
             $item->save();
+
+            Redis::decr('seckill_sku_'.$sku->id);
 
             return $order;
         });
